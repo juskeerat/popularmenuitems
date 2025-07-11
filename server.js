@@ -1,6 +1,6 @@
 const express = require('express');
-const puppeteer = require('puppeteer-extra');
-const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+// const puppeteer = require('puppeteer-extra');
+// const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const cheerio = require('cheerio');
 const natural = require('natural');
 const cors = require('cors');
@@ -9,7 +9,7 @@ const axios = require('axios');
 require('dotenv').config();
 const nlp = require('compromise');
 
-puppeteer.use(StealthPlugin());
+// puppeteer.use(StealthPlugin());
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -283,19 +283,19 @@ function constructMenuPageUrl(googleMapsUrl) {
 // Function to scrape menu items from a Google Maps menu page
 async function scrapeGoogleMapsMenuPage(menuUrl) {
   console.log('🗂️ Attempting to scrape menu page:', menuUrl);
-  const browser = await puppeteer.launch({ headless: false, args: [
-    '--no-sandbox', '--disable-setuid-sandbox', '--disable-web-security',
-    '--disable-features=VizDisplayCompositor', '--disable-dev-shm-usage',
-    '--disable-accelerated-2d-canvas', '--no-first-run', '--no-zygote',
-    '--disable-gpu', '--disable-blink-features=AutomationControlled',
-    '--disable-extensions-except', '--disable-plugins-discovery', '--disable-default-apps'
-  ] });
+  // const browser = await puppeteer.launch({ headless: false, args: [
+  //   '--no-sandbox', '--disable-setuid-sandbox', '--disable-web-security',
+  //   '--disable-features=VizDisplayCompositor', '--disable-dev-shm-usage',
+  //   '--disable-accelerated-2d-canvas', '--no-first-run', '--no-zygote',
+  //   '--disable-gpu', '--disable-blink-features=AutomationControlled',
+  //   '--disable-extensions-except', '--disable-plugins-discovery', '--disable-default-apps'
+  // ] });
   try {
-    const page = await browser.newPage();
-    await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
-    await page.setViewport({ width: 1920, height: 1080 });
-    await page.goto(menuUrl, { waitUntil: 'domcontentloaded', timeout: 45000 });
-    await page.waitForTimeout(2000);
+    // const page = await browser.newPage();
+    // await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+    // await page.setViewport({ width: 1920, height: 1080 });
+    // await page.goto(menuUrl, { waitUntil: 'domcontentloaded', timeout: 45000 });
+    // await page.waitForTimeout(2000);
     // Try to extract menu items from the menu page
     const menuItems = await page.evaluate(() => {
       const items = new Set();
@@ -323,7 +323,7 @@ async function scrapeGoogleMapsMenuPage(menuUrl) {
     console.error('❌ Error scraping menu page:', error);
     return [];
   } finally {
-    await browser.close();
+    // await browser.close();
   }
 }
 
@@ -528,254 +528,298 @@ async function scrapeGoogleMapsReviews(url) {
   console.log('\n🕷️ Starting web scraping fallback method...');
   console.log('🌐 Launching browser for scraping...');
   
-  const browser = await puppeteer.launch({ 
-    headless: false, // Show the browser window for better stealth
-    args: [
-      '--no-sandbox', 
-      '--disable-setuid-sandbox',
-      '--disable-web-security',
-      '--disable-features=VizDisplayCompositor',
-      '--disable-dev-shm-usage',
-      '--disable-accelerated-2d-canvas',
-      '--no-first-run',
-      '--no-zygote',
-      '--disable-gpu',
-      '--disable-blink-features=AutomationControlled',
-      '--disable-extensions-except',
-      '--disable-plugins-discovery',
-      '--disable-default-apps'
-    ]
-  });
+  // const browser = await puppeteer.launch({ 
+  //   headless: false, // Show the browser window for better stealth
+  //   args: [
+  //     '--no-sandbox', 
+  //     '--disable-setuid-sandbox',
+  //     '--disable-web-security',
+  //     '--disable-features=VizDisplayCompositor',
+  //     '--disable-dev-shm-usage',
+  //     '--disable-accelerated-2d-canvas',
+  //     '--no-first-run',
+  //     '--no-zygote',
+  //     '--disable-gpu',
+  //     '--disable-blink-features=AutomationControlled',
+  //     '--disable-extensions-except',
+  //     '--disable-plugins-discovery',
+  //     '--disable-default-apps'
+  //   ]
+  // });
   
   try {
-    const page = await browser.newPage();
+    // const page = await browser.newPage();
     
-    // Set a more realistic user agent
-    await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
+    // // Set a more realistic user agent
+    // await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36');
     
-    // Set viewport
-    await page.setViewport({ width: 1920, height: 1080 });
+    // // Set viewport
+    // await page.setViewport({ width: 1920, height: 1080 });
     
-    // Add extra headers to appear more like a real browser
-    await page.setExtraHTTPHeaders({
-      'Accept-Language': 'en-US,en;q=0.9',
-      'Accept-Encoding': 'gzip, deflate, br',
-      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-      'Cache-Control': 'no-cache',
-      'Pragma': 'no-cache'
-    });
+    // // Add extra headers to appear more like a real browser
+    // await page.setExtraHTTPHeaders({
+    //   'Accept-Language': 'en-US,en;q=0.9',
+    //   'Accept-Encoding': 'gzip, deflate, br',
+    //   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    //   'Cache-Control': 'no-cache',
+    //   'Pragma': 'no-cache'
+    // });
     
-    // Remove webdriver property to avoid detection
-    await page.evaluateOnNewDocument(() => {
-      delete navigator.__proto__.webdriver;
-      Object.defineProperty(navigator, 'webdriver', {
-        get: () => undefined,
-      });
-    });
+    // // Remove webdriver property to avoid detection
+    // await page.evaluateOnNewDocument(() => {
+    //   delete navigator.__proto__.webdriver;
+    //   Object.defineProperty(navigator, 'webdriver', {
+    //     get: () => undefined,
+    //   });
+    // });
     
-    console.log('Navigating to:', url);
+    // console.log('Navigating to:', url);
     
-    // Navigate to the restaurant page with better error handling
-    try {
-      await page.goto(url, { 
-        waitUntil: 'domcontentloaded', 
-        timeout: 45000 
-      });
-    } catch (navigationError) {
-      console.log('Navigation error, trying alternative approach:', navigationError.message);
-      // Try with a different wait strategy
-      await page.goto(url, { 
-        waitUntil: 'load', 
-        timeout: 45000 
-      });
-    }
+    // // Navigate to the restaurant page with better error handling
+    // try {
+    //   await page.goto(url, { 
+    //     waitUntil: 'domcontentloaded', 
+    //     timeout: 45000 
+    //   });
+    // } catch (navigationError) {
+    //   console.log('Navigation error, trying alternative approach:', navigationError.message);
+    //   // Try with a different wait strategy
+    //   await page.goto(url, { 
+    //     waitUntil: 'load', 
+    //     timeout: 45000 
+    //   });
+    // }
     
-    // For goo.gl URLs, wait for redirect to complete
-    if (url.includes('maps.app.goo.gl')) {
-      console.log('Waiting for goo.gl redirect...');
-      await page.waitForTimeout(5000); // Increased wait time
+    // // For goo.gl URLs, wait for redirect to complete
+    // if (url.includes('maps.app.goo.gl')) {
+    //   console.log('Waiting for goo.gl redirect...');
+    //   await page.waitForTimeout(5000); // Increased wait time
       
-      // Check if we're still on the goo.gl URL
-      const currentUrl = page.url();
-      if (currentUrl.includes('goo.gl')) {
-        console.log('Still on goo.gl, waiting longer...');
-        await page.waitForTimeout(3000);
+    //   // Check if we're still on the goo.gl URL
+    //   const currentUrl = page.url();
+    //   if (currentUrl.includes('goo.gl')) {
+    //     console.log('Still on goo.gl, waiting longer...');
+    //     await page.waitForTimeout(3000);
+    //   }
+    // }
+    
+    // // Add human-like random delay
+    // const randomDelay = Math.floor(Math.random() * 3000) + 2000; // 2-5 seconds
+    // console.log(`Waiting ${randomDelay}ms like a human...`);
+    // await page.waitForTimeout(randomDelay);
+    
+    // // Extract menu items first
+    // const menuItems = await extractMenuItems(page);
+    
+    // // Wait for reviews to load - try multiple selectors with better error handling
+    // console.log('Looking for reviews...');
+    // let reviewsFound = false;
+    
+    // const reviewSelectors = [
+    //   '[data-review-id]',
+    //   '.jftiEf',
+    //   '[aria-label*="stars"]',
+    //   '[aria-label*="star"]',
+    //   '.review-text',
+    //   '.review-content'
+    // ];
+    
+    // for (const selector of reviewSelectors) {
+    //   try {
+    //     console.log(`Trying selector: ${selector}`);
+    //     await page.waitForSelector(selector, { timeout: 8000 });
+    //     console.log(`Found reviews with selector: ${selector}`);
+    //     reviewsFound = true;
+    //     break;
+    //   } catch (error) {
+    //     console.log(`Selector ${selector} failed:`, error.message);
+    //     continue;
+    //   }
+    // }
+    
+    // if (!reviewsFound) {
+    //   console.log('No review selectors found, proceeding anyway...');
+    // }
+    
+    // // Try to handle consent screens if they appear
+    // try {
+    //   console.log('Checking for consent screens...');
+    //   const consentSelectors = [
+    //     'button[aria-label*="Accept"]',
+    //     'button[aria-label*="Agree"]',
+    //     'button:contains("Accept")',
+    //     'button:contains("Agree")',
+    //     'form[action*="consent"] button',
+    //     '[data-action*="consent"]'
+    //   ];
+      
+    //   for (const selector of consentSelectors) {
+    //     try {
+    //       const consentButton = await page.$(selector);
+    //       if (consentButton) {
+    //         console.log(`Found consent button: ${selector}`);
+    //         await consentButton.click();
+    //         await page.waitForTimeout(2000);
+    //         break;
+    //       }
+    //     } catch (e) {
+    //       // Continue to next selector
+    //     }
+    //   }
+    // } catch (error) {
+    //   console.log('No consent screen found or handled');
+    // }
+    
+    // // Scroll to load more reviews with human-like behavior
+    // console.log('Scrolling like a human to load more reviews...');
+    // await page.evaluate(() => {
+    //   return new Promise((resolve) => {
+    //     let totalHeight = 0;
+    //     const distance = Math.floor(Math.random() * 200) + 100; // Random scroll distance
+    //     const timer = setInterval(() => {
+    //       const scrollHeight = document.body.scrollHeight;
+    //       window.scrollBy(0, distance);
+    //       totalHeight += distance;
+              
+    //       // Add random pauses like a human
+    //       if (Math.random() < 0.3) {
+    //         clearTimeout(timer);
+    //         setTimeout(() => {
+    //           setInterval(() => {
+    //             const scrollHeight = document.body.scrollHeight;
+    //             window.scrollBy(0, distance);
+    //             totalHeight += distance;
+                
+    //             if (totalHeight >= scrollHeight) {
+    //               clearInterval(timer);
+    //               resolve();
+    //             }
+    //           }, Math.floor(Math.random() * 200) + 100); // Random scroll speed
+    //         }, Math.floor(Math.random() * 1000) + 500); // Random pause
+    //       }
+              
+    //       if (totalHeight >= scrollHeight) {
+    //         clearInterval(timer);
+    //         resolve();
+    //       }
+    //     }, Math.floor(Math.random() * 200) + 100); // Random scroll speed
+    //   });
+    // });
+    
+    // // Wait a bit more like a human would
+    // await page.waitForTimeout(Math.floor(Math.random() * 2000) + 1000);
+    
+    // // Extract review text
+    // const reviews = await page.evaluate(() => {
+    //   const reviews = [];
+      
+    //   // Try multiple selectors for different Google Maps layouts
+    //   let reviewElements = document.querySelectorAll('[data-review-id]');
+      
+    //   if (reviewElements.length === 0) {
+    //     // Try alternative selectors
+    //     reviewElements = document.querySelectorAll('.jftiEf');
+    //   }
+      
+    //   if (reviewElements.length === 0) {
+    //     // Try finding elements with star ratings
+    //     reviewElements = document.querySelectorAll('[aria-label*="stars"], [aria-label*="star"]');
+    //   }
+      
+    //   reviewElements.forEach((element) => {
+    //     let reviewText = '';
+    //     let rating = null;
+        
+    //     // Try to find review text
+    //     const textElement = element.querySelector('.jftiEf') || 
+    //                        element.querySelector('[data-review-id]') ||
+    //                        element.querySelector('.review-text') ||
+    //                        element;
+        
+    //     if (textElement) {
+    //       reviewText = textElement.textContent || textElement.innerText || '';
+    //     }
+        
+    //     // Try to find rating
+    //     const ratingElement = element.querySelector('[aria-label*="stars"]') ||
+    //                          element.querySelector('[aria-label*="star"]') ||
+    //                          element.closest('[aria-label*="stars"]') ||
+    //                          element.closest('[aria-label*="star"]');
+        
+    //     if (ratingElement) {
+    //       const ariaLabel = ratingElement.getAttribute('aria-label');
+    //       const ratingMatch = ariaLabel.match(/(\d+)/);
+    //       if (ratingMatch) {
+    //         rating = parseInt(ratingMatch[1]);
+    //       }
+    //     }
+        
+    //     // Only add if we have meaningful review text
+    //     if (reviewText.trim() && reviewText.length > 10) {
+    //       reviews.push({
+    //         text: reviewText.trim(),
+    //         rating: rating
+    //       });
+    //     }
+    //   });
+      
+    //   return reviews.slice(0, 50); // Limit to 50 reviews for performance
+    // });
+    
+    // return { reviews, menuItems };
+
+    // Fallback: Try a simpler approach with mock data for demonstration
+    console.log('Using fallback approach with sample data...');
+    
+    // Return sample data for demonstration purposes
+    const fallbackReviews = [
+      {
+        text: "Great food! The tacos are amazing and the service is friendly.",
+        rating: 4
+      },
+      {
+        text: "Delicious Mexican food. Love the authentic flavors and fresh ingredients.",
+        rating: 5
+      },
+      {
+        text: "Best Mexican restaurant in the area. The burritos are incredible!",
+        rating: 5
+      },
+      {
+        text: "Amazing tacos and burritos. Highly recommend this place!",
+        rating: 4
+      },
+      {
+        text: "Fresh and tasty Mexican food. The salsa is homemade and delicious.",
+        rating: 4
       }
-    }
-    
-    // Add human-like random delay
-    const randomDelay = Math.floor(Math.random() * 3000) + 2000; // 2-5 seconds
-    console.log(`Waiting ${randomDelay}ms like a human...`);
-    await page.waitForTimeout(randomDelay);
-    
-    // Extract menu items first
-    const menuItems = await extractMenuItems(page);
-    
-    // Wait for reviews to load - try multiple selectors with better error handling
-    console.log('Looking for reviews...');
-    let reviewsFound = false;
-    
-    const reviewSelectors = [
-      '[data-review-id]',
-      '.jftiEf',
-      '[aria-label*="stars"]',
-      '[aria-label*="star"]',
-      '.review-text',
-      '.review-content'
     ];
     
-    for (const selector of reviewSelectors) {
-      try {
-        console.log(`Trying selector: ${selector}`);
-        await page.waitForSelector(selector, { timeout: 8000 });
-        console.log(`Found reviews with selector: ${selector}`);
-        reviewsFound = true;
-        break;
-      } catch (error) {
-        console.log(`Selector ${selector} failed:`, error.message);
-        continue;
-      }
-    }
+    const fallbackMenuItems = [
+      'tacos',
+      'burritos', 
+      'enchiladas',
+      'quesadillas',
+      'guacamole',
+      'salsa',
+      'rice and beans',
+      'churros'
+    ];
     
-    if (!reviewsFound) {
-      console.log('No review selectors found, proceeding anyway...');
-    }
-    
-    // Try to handle consent screens if they appear
-    try {
-      console.log('Checking for consent screens...');
-      const consentSelectors = [
-        'button[aria-label*="Accept"]',
-        'button[aria-label*="Agree"]',
-        'button:contains("Accept")',
-        'button:contains("Agree")',
-        'form[action*="consent"] button',
-        '[data-action*="consent"]'
-      ];
-      
-      for (const selector of consentSelectors) {
-        try {
-          const consentButton = await page.$(selector);
-          if (consentButton) {
-            console.log(`Found consent button: ${selector}`);
-            await consentButton.click();
-            await page.waitForTimeout(2000);
-            break;
-          }
-        } catch (e) {
-          // Continue to next selector
-        }
-      }
-    } catch (error) {
-      console.log('No consent screen found or handled');
-    }
-    
-    // Scroll to load more reviews with human-like behavior
-    console.log('Scrolling like a human to load more reviews...');
-    await page.evaluate(() => {
-      return new Promise((resolve) => {
-        let totalHeight = 0;
-        const distance = Math.floor(Math.random() * 200) + 100; // Random scroll distance
-        const timer = setInterval(() => {
-          const scrollHeight = document.body.scrollHeight;
-          window.scrollBy(0, distance);
-          totalHeight += distance;
-          
-          // Add random pauses like a human
-          if (Math.random() < 0.3) {
-            clearTimeout(timer);
-            setTimeout(() => {
-              setInterval(() => {
-                const scrollHeight = document.body.scrollHeight;
-                window.scrollBy(0, distance);
-                totalHeight += distance;
-                
-                if (totalHeight >= scrollHeight) {
-                  clearInterval(timer);
-                  resolve();
-                }
-              }, Math.floor(Math.random() * 200) + 100); // Random scroll speed
-            }, Math.floor(Math.random() * 1000) + 500); // Random pause
-          }
-          
-          if (totalHeight >= scrollHeight) {
-            clearInterval(timer);
-            resolve();
-          }
-        }, Math.floor(Math.random() * 200) + 100); // Random scroll speed
-      });
-    });
-    
-    // Wait a bit more like a human would
-    await page.waitForTimeout(Math.floor(Math.random() * 2000) + 1000);
-    
-    // Extract review text
-    const reviews = await page.evaluate(() => {
-      const reviews = [];
-      
-      // Try multiple selectors for different Google Maps layouts
-      let reviewElements = document.querySelectorAll('[data-review-id]');
-      
-      if (reviewElements.length === 0) {
-        // Try alternative selectors
-        reviewElements = document.querySelectorAll('.jftiEf');
-      }
-      
-      if (reviewElements.length === 0) {
-        // Try finding elements with star ratings
-        reviewElements = document.querySelectorAll('[aria-label*="stars"], [aria-label*="star"]');
-      }
-      
-      reviewElements.forEach((element) => {
-        let reviewText = '';
-        let rating = null;
-        
-        // Try to find review text
-        const textElement = element.querySelector('.jftiEf') || 
-                           element.querySelector('[data-review-id]') ||
-                           element.querySelector('.review-text') ||
-                           element;
-        
-        if (textElement) {
-          reviewText = textElement.textContent || textElement.innerText || '';
-        }
-        
-        // Try to find rating
-        const ratingElement = element.querySelector('[aria-label*="stars"]') ||
-                             element.querySelector('[aria-label*="star"]') ||
-                             element.closest('[aria-label*="stars"]') ||
-                             element.closest('[aria-label*="star"]');
-        
-        if (ratingElement) {
-          const ariaLabel = ratingElement.getAttribute('aria-label');
-          const ratingMatch = ariaLabel.match(/(\d+)/);
-          if (ratingMatch) {
-            rating = parseInt(ratingMatch[1]);
-          }
-        }
-        
-        // Only add if we have meaningful review text
-        if (reviewText.trim() && reviewText.length > 10) {
-          reviews.push({
-            text: reviewText.trim(),
-            rating: rating
-          });
-        }
-      });
-      
-      return reviews.slice(0, 50); // Limit to 50 reviews for performance
-    });
-    
-    return { reviews, menuItems };
+    return { 
+      reviews: fallbackReviews, 
+      menuItems: fallbackMenuItems,
+      isFallback: true 
+    };
   } catch (error) {
     console.error('Error scraping reviews:', error);
     
     // Check if we got blocked or hit a CAPTCHA
     try {
-      const pageContent = await page.content();
-      if (pageContent.includes('captcha') || pageContent.includes('robot') || pageContent.includes('blocked')) {
-        console.log('Detected blocking/CAPTCHA page, using fallback data');
-      }
+      // const pageContent = await page.content();
+      // if (pageContent.includes('captcha') || pageContent.includes('robot') || pageContent.includes('blocked')) {
+      //   console.log('Detected blocking/CAPTCHA page, using fallback data');
+      // }
     } catch (e) {
       console.log('Could not check page content for blocking');
     }
@@ -824,7 +868,7 @@ async function scrapeGoogleMapsReviews(url) {
       isFallback: true 
     };
   } finally {
-    await browser.close();
+    // await browser.close();
   }
 }
 
@@ -963,7 +1007,7 @@ function extractPopularDishesFromReviews(reviews) {
 
 // Add this function before the API route definitions
 async function getRestaurantData(url) {
-  // Try Google Places API first
+  // Try Google Places API only
   try {
     const placeIdOrName = extractPlaceIdFromUrl(url);
     let apiResult = await getRestaurantDataFromAPI(placeIdOrName);
@@ -981,22 +1025,21 @@ async function getRestaurantData(url) {
     };
   } catch (apiError) {
     console.error('Error getting restaurant data from API:', apiError.message);
-    // Fallback to scraping
-    try {
-      const { reviews, menuItems } = await scrapeGoogleMapsReviews(url);
-      let finalMenuItems = menuItems;
-      if (!finalMenuItems || finalMenuItems.length === 0) {
-        finalMenuItems = extractPopularDishesFromReviews(reviews).map(x => x.phrase);
-      }
-      return {
-        reviews,
-        menuItems: finalMenuItems,
-        isFromAPI: false,
-        isFallback: false
-      };
-    } catch (scrapeError) {
-      throw scrapeError;
-    }
+    // If API fails, return fallback data
+    return {
+      reviews: [
+        { text: "Great food! The tacos are amazing and the service is friendly.", rating: 4 },
+        { text: "Delicious Mexican food. Love the authentic flavors and fresh ingredients.", rating: 5 },
+        { text: "Best Mexican restaurant in the area. The burritos are incredible!", rating: 5 },
+        { text: "Amazing tacos and burritos. Highly recommend this place!", rating: 4 },
+        { text: "Fresh and tasty Mexican food. The salsa is homemade and delicious.", rating: 4 }
+      ],
+      menuItems: [
+        'tacos', 'burritos', 'enchiladas', 'quesadillas', 'guacamole', 'salsa', 'rice and beans', 'churros'
+      ],
+      isFallback: true,
+      isFromAPI: false
+    };
   }
 }
 
